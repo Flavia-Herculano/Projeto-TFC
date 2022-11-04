@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import ILogin from '../interfaces/login.interface';
+import IUser from '../interfaces/user.interface';
 
 export const validateEmail = async (req: Request, res: Response, next: NextFunction) => {
   const { body } = req;
-  const { email } = body as ILogin;
+  const { email } = body as IUser;
   const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
   if (!email) {
@@ -17,7 +17,7 @@ export const validateEmail = async (req: Request, res: Response, next: NextFunct
 
 export const validatePassword = (req: Request, res: Response, next: NextFunction) => {
   const { body } = req;
-  const { password } = body as ILogin;
+  const { password } = body as IUser;
 
   if (!password) {
     return res.status(400).json({ message: 'All fields must be filled' });

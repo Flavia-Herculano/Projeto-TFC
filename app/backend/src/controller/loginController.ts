@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
-import ILogin from '../interfaces/login.interface';
 import LoginService from '../services/loginService';
 import Token from '../helpers/token';
+import IUser from '../interfaces/user.interface';
 
 class LoginController {
   public service: LoginService;
@@ -13,7 +13,7 @@ class LoginController {
 
   public findLogin = async (req: Request, res: Response) => {
     const { body } = req;
-    const login = body as ILogin;
+    const login = body as IUser;
 
     const user = await this.service.getUser(login.email);
     const pw = user?.password as string;
@@ -29,10 +29,11 @@ class LoginController {
   public getRole = async (req: Request, res: Response) => {
     const token = req.header('Authorization') as string;
 
-    // não consigo acessar a chave em payload.role
-    const payload = Token.decodedToken(token);
-    console.log('OIIII', payload);
-    return res.status(200).json('oi');
+    const { payload } = Token.decodedToken(token) as any;
+
+    const user = await this.service.getUser(payload.email);
+    const role = user?.role;
+    return res.status(200).json({ role });
   };
 }
 

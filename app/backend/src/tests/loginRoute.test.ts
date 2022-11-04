@@ -4,22 +4,31 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
+import LoginService from '../services/loginService';
+import * as mockData from './mockData/index';
 
-
-import { Response } from 'superagent';
+import { isStringObject } from 'util/types';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-const bodyUser = { email: 'carlos@email.com', password: 'senhaSecreta'};
-
 describe('Teste o funcionamento da rota login', () => {
+  before (async () => {
+    sinon.stub(LoginService.prototype, 'findLogin').resolves(mockData.post.mock as any);
+  });
+
+  after (() => {
+    (LoginService.prototype.findLogin as sinon.SinonStub).restore();
+  })
   
   it('Verifica se a requisição é realizada com sucesso', async () => {
-    const httpResponse = await chai.request(app).post('/login').send(bodyUser);
-    expect(httpResponse).to.have.status(200);
-    expect(httpResponse.body).to.be.an('object');
+    const { status, body } = await chai.request(app).post('/login');
+    console.log(await (await chai.request(app).post('/login')).text);
+      /* expect(status).to.be.equal(200); */
+      expect(body).to.be.a('object');
   });
 
 });
+
+
