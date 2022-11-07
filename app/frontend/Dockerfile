@@ -3,4 +3,5 @@ WORKDIR /app-frontend
 COPY . /app-frontend
 EXPOSE 3000
 RUN npm install
-CMD [ "npm", “start”]
+ENTRYPOINT [ "npm" ]
+CMD [ “start” ]
