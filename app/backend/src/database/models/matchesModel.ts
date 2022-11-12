@@ -1,4 +1,4 @@
-import { Model, INTEGER, TINYINT } from 'sequelize';
+import { Model, INTEGER } from 'sequelize';
 import db from '.';
 import Teams from './teamsModel';
 
@@ -35,7 +35,7 @@ Matches.init({
     allowNull: false,
   },
   inProgress: {
-    type: TINYINT,
+    type: INTEGER,
     allowNull: false,
   },
 }, {
@@ -45,10 +45,10 @@ Matches.init({
   timestamps: false,
 });
 
-Teams.hasMany(Matches, { sourceKey: 'id', foreignKey: 'home_team', as: 'homeTeam' });
-Matches.belongsTo(Teams, { foreignKey: 'home_team', as: 'homeTeam' });
+Teams.hasMany(Matches, { as: 'teamHome', foreignKey: 'homeTeam' });
+Matches.belongsTo(Teams, { as: 'teamHome', foreignKey: 'homeTeam' });
 
-Teams.hasMany(Matches, { sourceKey: 'id', foreignKey: 'away_team', as: 'awayTeam' });
-Matches.belongsTo(Teams, { foreignKey: 'away_team', as: 'awayTeam' });
+Teams.hasMany(Matches, { foreignKey: 'awayTeam', as: 'teamAway' });
+Matches.belongsTo(Teams, { foreignKey: 'awayTeam', as: 'teamAway' });
 
 export default Matches;
