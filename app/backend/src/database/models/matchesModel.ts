@@ -1,4 +1,4 @@
-import { Model, INTEGER } from 'sequelize';
+import { Model, INTEGER, TINYINT } from 'sequelize';
 import db from '.';
 import Teams from './teamsModel';
 
@@ -35,7 +35,7 @@ Matches.init({
     allowNull: false,
   },
   inProgress: {
-    type: INTEGER,
+    type: TINYINT,
     allowNull: false,
   },
 }, {
