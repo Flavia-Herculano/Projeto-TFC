@@ -38,6 +38,11 @@ class Macthes {
     const result = await MatchesModel.update({ inProgress: false }, { where: { id } });
     return result;
   };
+
+  public updateMatches = async (id: string, homeTeamGoals: number, awayTeamGoals: number) => {
+    const result = await MatchesModel.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    return result;
+  };
 }
 
 export default Macthes;
