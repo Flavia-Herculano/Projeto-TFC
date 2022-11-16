@@ -34,8 +34,8 @@ class Macthes {
     return newMatches;
   };
 
-  public updateMatches = async (id: string, inProgress: string) => {
-    const result = await MatchesModel.update({ inProgress }, { where: { id } });
+  public updateInProgress = async (id: string) => {
+    const result = await MatchesModel.update({ inProgress: false }, { where: { id } });
     return result;
   };
 }

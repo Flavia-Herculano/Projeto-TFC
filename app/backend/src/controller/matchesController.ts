@@ -35,10 +35,9 @@ class MatchesController {
     return res.status(201).json(result);
   };
 
-  public updateMatches = async (req: Request, res: Response) => {
+  public updateInProgress = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { inProgress } = req.body;
-    await this.service.updateMatches(id, inProgress);
+    await this.service.updateInProgress(id);
     return res.status(200).json({ message: 'Finished' });
   };
 }
