@@ -16,6 +16,28 @@ class Macthes {
       ] });
     return matches;
   };
+
+  public insertMacthes = async (
+    homeTeam: number,
+    awayTeam: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ) => {
+    const newMatches = await MatchesModel.create({
+      homeTeam,
+      awayTeam,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true,
+    });
+
+    return newMatches;
+  };
+
+  public updateMatches = async (id: string, inProgress: string) => {
+    const result = await MatchesModel.update({ inProgress }, { where: { id } });
+    return result;
+  };
 }
 
 export default Macthes;
