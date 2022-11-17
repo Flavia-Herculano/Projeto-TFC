@@ -8,12 +8,12 @@ const validateTeam = async (req: Request, res: Response, next: NextFunction) => 
   const team1 = await teamService.teamsById(homeTeam);
   const team2 = await teamService.teamsById(awayTeam);
 
-  if (awayTeam === team1) {
+  if (awayTeam === team1?.id) {
     return res.status(422).json({
       message: 'It is not possible to create a match with two equal teams',
     });
   }
-  if (homeTeam !== team1 || awayTeam !== team2) {
+  if (homeTeam !== team1?.id || awayTeam !== team2?.id) {
     return res.status(404).json({ message: 'There is no team with such id!' });
   }
   next();

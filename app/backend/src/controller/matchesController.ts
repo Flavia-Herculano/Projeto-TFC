@@ -11,13 +11,13 @@ class MatchesController {
   public getMacthes = async (req: Request, res: Response) => {
     const { inProgress } = req.query;
     const matches = await this.service.getMatches();
-    const matchesTrue = matches.filter((match) => match.inProgress === 1);
-    const matchesFalse = matches.filter((match) => match.inProgress === 0);
 
     if (inProgress === 'true') {
+      const matchesTrue = matches.filter((match) => match.inProgress === 1);
       return res.status(200).json(matchesTrue);
     }
     if (inProgress === 'false') {
+      const matchesFalse = matches.filter((match) => match.inProgress === 0);
       return res.status(200).json(matchesFalse);
     }
     return res.status(200).json(matches);
