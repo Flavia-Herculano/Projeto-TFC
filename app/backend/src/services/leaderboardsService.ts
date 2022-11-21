@@ -1,5 +1,5 @@
 import modelIndex from '../database/models/index';
-import { leaderboardAway, leaderboardHome } from '../helpers/utils';
+import { leaderboard, leaderboardAway, leaderboardHome } from '../helpers/utils';
 
 class Leaderboards {
   public getHome = async () => {
@@ -9,6 +9,11 @@ class Leaderboards {
 
   public getAway = async () => {
     const query = await modelIndex.query(leaderboardAway);
+    return query[0];
+  };
+
+  public getAll = async () => {
+    const query = await modelIndex.query(leaderboard);
     return query[0];
   };
 }

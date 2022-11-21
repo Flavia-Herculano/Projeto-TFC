@@ -17,6 +17,11 @@ class LeaderboardController {
     const result = await this.service.getAway();
     return res.status(200).json(result);
   };
+
+  public findAll = async (req: Request, res: Response) => {
+    const result = await this.service.getAll();
+    return res.status(200).json(result);
+  };
 }
 
 export default LeaderboardController;
